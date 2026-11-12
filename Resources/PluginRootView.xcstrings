@@ -1,0 +1,29 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "当前没有可显示的内容": {
+      "comment": "Root view empty state title",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No content to display"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前没有可显示的内容"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當前沒有可顯示的內容"
+          }
+        }
+      }
+    }
+  }
+}

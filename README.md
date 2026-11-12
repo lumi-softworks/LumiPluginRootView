@@ -31,6 +31,8 @@ Why: Xcode's package dependency list shows the upstream manifest's `Package(name
 - Replacement semantics: `onBoot` unregisters the kernel's default provider and registers the plugin's own one, so a host can pick its root layout deterministically.
 - Idempotent shutdown: `onShutdown` unregisters the provider, and repeated calls are safe.
 - An injectable provider: hosts that need a custom root layout pass their own `DefaultRootViewProviding` subclass; hosts that need the plain contribution API get `DefaultRootViewProviding` for free.
+- `RootContentComposer`: the shared content-assembly decisions (toolbar visibility, content source, overlay order) — pure functions that can be asserted without building a SwiftUI view tree.
+- `ConfigurableRootViewProviding`: a ready-made root layout with an optional top toolbar, an optional theme gradient background, and an empty-state placeholder.
 
 ## Dependencies and Integration
 
@@ -100,6 +102,36 @@ The plugin does not prescribe a layout — it only guarantees that the kernel re
 ## Boot Order
 
 The root-view plugin must start **before** any plugin that contributes content to the root view, otherwise those contributions land in a provider that is about to be replaced. Set `order` accordingly (the shipped defaults are `0` for Lumi and `-1` for Wakey, both of which run before the business plugins).
+
+## Root Layout
+
+`RootViewLayoutConfiguration` describes how the shared root view is composed:
+
+| Field | Purpose | Default |
+| --- | --- | --- |
+| `showsToolbar` | Render the toolbar region at the top (macOS only) | `false` |
+| `usesMystiqueBackground` | Paint the theme gradient behind the root view | `false` |
+| `emptyStateTitle` | Title shown when the content region has no contribution | the package's localized "No content to display" |
+
+Two ready-made presets exist:
+
+- `RootViewLayoutConfiguration.minimal` — content region only.
+- `RootViewLayoutConfiguration.toolbarWithMystiqueBackground` — top toolbar plus the theme gradient.
+
+A host that wants this layout injects `ConfigurableRootViewProviding`:
+
+```swift
+RootViewPlugin(
+    configuration: .juiceNote,
+    provider: ConfigurableRootViewProviding(layout: .toolbarWithMystiqueBackground)
+)
+```
+
+The package ships presets for the sibling apps: `.lumi`, `.wakey`, `.juiceNote` and `.kuzee`. Each preset keeps its host's historical plugin ID, boot order and layout, so migrating a host to this package does not change what it renders.
+
+## Localization
+
+The string catalog ships English, Simplified Chinese, and Traditional Chinese (`en` / `zh-Hans` / `zh-Hant`) for the empty-state title. Hosts cannot override that string catalog — it is the single source of truth — but they can pass their own `emptyStateTitle`.
 
 ## Testing
 

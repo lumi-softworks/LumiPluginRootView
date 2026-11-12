@@ -112,6 +112,40 @@ RootViewPlugin(configuration: .lumi, provider: MyAppRootViewProvider())
 即将被替换掉的 provider 里。请据此设置 `order`（目前 Lumi 为 `0`、Wakey 为
 `-1`，都早于业务插件）。
 
+## 根视图布局
+
+`RootViewLayoutConfiguration` 描述共享根视图的组合方式：
+
+| 字段 | 作用 | 默认值 |
+| --- | --- | --- |
+| `showsToolbar` | 是否在顶部渲染工具栏区域（仅 macOS） | `false` |
+| `usesMystiqueBackground` | 是否在根视图后铺主题渐变背景 | `false` |
+| `emptyStateTitle` | 内容区没有贡献时的空态文案 | 本包本地化的「当前没有可显示的内容」 |
+
+内置两个预设：
+
+- `RootViewLayoutConfiguration.minimal` —— 只有内容区；
+- `RootViewLayoutConfiguration.toolbarWithMystiqueBackground` —— 顶部工具栏 + 主题渐变。
+
+需要该布局的宿主注入 `ConfigurableRootViewProviding`：
+
+```swift
+RootViewPlugin(
+    configuration: .juiceNote,
+    provider: ConfigurableRootViewProviding(layout: .toolbarWithMystiqueBackground)
+)
+```
+
+本包为兄弟应用内置了 `.lumi`、`.wakey`、`.juiceNote`、`.kuzee` 四套预设。
+每套预设都保留各自宿主的历史插件 id、启动顺序与布局，因此宿主迁到本包后
+渲染结果不变。
+
+## 本地化
+
+空态文案的字符串目录提供英文、简体中文、繁体中文（`en` / `zh-Hans` /
+`zh-Hant`）。宿主不能覆盖这份字符串目录 —— 它是唯一事实来源 —— 但可以
+通过 `emptyStateTitle` 传入自己的文案。
+
 ## 测试
 
 ```sh

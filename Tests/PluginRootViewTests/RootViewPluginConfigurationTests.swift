@@ -37,4 +37,28 @@ struct RootViewPluginConfigurationTests {
         #expect(configuration == RootViewPluginConfiguration(pluginID: "com.example.plugin.root-view"))
         #expect(configuration != RootViewPluginConfiguration(pluginID: "com.example.other"))
     }
+
+    @Test("JuiceNote 品牌取值为历史值")
+    func juiceNoteConfigurationKeepsHistoricalValues() {
+        let configuration = RootViewPluginConfiguration.juiceNote
+        #expect(configuration.pluginID == "com.coffic.juicenote.plugin.root-view")
+        #expect(configuration.pluginName == "Root View")
+        #expect(configuration.pluginDescription == "Provides JuiceNote's application layout")
+        #expect(configuration.order == -1_000)
+        #expect(configuration.loggerSubsystem == "com.coffic.juicenote.plugin.root-view")
+        #expect(configuration.layout.showsToolbar)
+        #expect(configuration.layout.usesMystiqueBackground)
+    }
+
+    @Test("Kuzee 品牌取值为历史值")
+    func kuzeeConfigurationKeepsHistoricalValues() {
+        let configuration = RootViewPluginConfiguration.kuzee
+        #expect(configuration.pluginID == "com.coffic.kuzee.plugin.root-view")
+        #expect(configuration.pluginName == "Root View")
+        #expect(configuration.pluginDescription == "Provides Kuzee's application layout")
+        #expect(configuration.order == -1_000)
+        #expect(configuration.loggerSubsystem == "com.coffic.kuzee.plugin.root-view")
+        #expect(configuration.layout.showsToolbar)
+        #expect(configuration.layout.usesMystiqueBackground)
+    }
 }

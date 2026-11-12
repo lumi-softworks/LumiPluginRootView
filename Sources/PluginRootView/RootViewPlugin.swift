@@ -53,7 +53,6 @@ public final class RootViewPlugin: SuperPlugin, SuperLog {
             id: configuration.pluginID,
             name: configuration.pluginName,
             description: configuration.pluginDescription,
-            category: .system,
             stage: .stable,
             policy: .alwaysOn
         )
