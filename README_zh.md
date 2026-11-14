@@ -65,7 +65,7 @@ root.setContentView(contentView.makeContentView())
 - `setRailView(nil)` 会隐藏 Rail 并记住上一次可见性，无 Rail 的工作区失活时可以恢复共享的 Rail。
 - 内容注入只在 `nil` → 非 `nil` 时生效；插件必须在失活时清空自己的内容（与 Lumi 插件契约一致）。
 
-用 `WorkbenchLayoutConfiguration` 定制欢迎占位（`welcomeTitle`、`welcomeMessage`、`showsWelcomePlaceholder`、`showsToolbar`、`usesThemeBackground`）。只需要「工具栏 + 内容」的宿主继续使用 `ConfigurableRootViewProviding`。
+用 `WorkbenchLayoutConfiguration` 定制欢迎占位（`welcomeTitle`、`welcomeMessage`、`showsWelcomePlaceholder`、`showsToolbar`、`usesThemeBackground`、`usesMystiqueBackground`）。只需要「工具栏 + 内容」的宿主继续使用 `ConfigurableRootViewProviding`。
 
 ## 依赖与接入
 

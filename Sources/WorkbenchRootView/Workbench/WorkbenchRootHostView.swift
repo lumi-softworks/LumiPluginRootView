@@ -78,7 +78,12 @@ private struct DesktopWorkbenchRootHostView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityIdentifier("root.main")
-        .modifier(WorkbenchBackgroundModifier(usesThemeBackground: provider.layout.usesThemeBackground))
+        .modifier(
+            WorkbenchBackgroundModifier(
+                usesThemeBackground: provider.layout.usesThemeBackground,
+                usesMystiqueBackground: provider.layout.usesMystiqueBackground
+            )
+        )
         .appThemedAppearance()
         .background {
             ThemeWindowAppearanceBridge()
@@ -105,17 +110,24 @@ private struct DesktopWorkbenchRootHostView: View {
 }
 #endif
 
-/// 按开关决定是否铺主题背景。
+/// 按开关决定铺哪种背景。
 ///
 /// 用 modifier 而不是 `background { if ... }`，是为了在关闭背景时完全不附加
 /// 背景层，保持与关闭前的渲染结果一致。
 @MainActor
 struct WorkbenchBackgroundModifier: ViewModifier {
     let usesThemeBackground: Bool
+    var usesMystiqueBackground: Bool = false
     @LumiTheme private var theme
 
     func body(content: Content) -> some View {
-        if usesThemeBackground {
+        if usesMystiqueBackground {
+            content.background {
+                Color.clear
+                    .mystiqueBackground()
+                    .ignoresSafeArea()
+            }
+        } else if usesThemeBackground {
             content.background(theme.background)
         } else {
             content

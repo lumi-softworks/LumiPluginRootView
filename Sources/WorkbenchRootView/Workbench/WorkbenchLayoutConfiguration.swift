@@ -15,6 +15,11 @@ public struct WorkbenchLayoutConfiguration: Sendable, Equatable {
     /// 是否用当前主题背景铺满根视图。
     public let usesThemeBackground: Bool
 
+    /// 是否在根视图背景铺一层主题渐变（`mystiqueBackground`）。
+    ///
+    /// 与 `usesThemeBackground` 互斥使用：同时开启时渐变优先。
+    public let usesMystiqueBackground: Bool
+
     /// 欢迎占位的标题。
     public let welcomeTitle: String
 
@@ -25,12 +30,14 @@ public struct WorkbenchLayoutConfiguration: Sendable, Equatable {
         showsToolbar: Bool = true,
         showsWelcomePlaceholder: Bool = true,
         usesThemeBackground: Bool = true,
+        usesMystiqueBackground: Bool = false,
         welcomeTitle: String = Self.defaultWelcomeTitle,
         welcomeMessage: String = Self.defaultWelcomeMessage
     ) {
         self.showsToolbar = showsToolbar
         self.showsWelcomePlaceholder = showsWelcomePlaceholder
         self.usesThemeBackground = usesThemeBackground
+        self.usesMystiqueBackground = usesMystiqueBackground
         self.welcomeTitle = welcomeTitle
         self.welcomeMessage = welcomeMessage
     }

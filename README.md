@@ -61,7 +61,7 @@ Behaviour that hosts rely on:
 - Removing the rail view (`setRailView(nil)`) hides it and remembers the previous visibility, so a workspace without a rail can restore the shared one on deactivation.
 - Content injection only takes effect on `nil` → non-`nil` transitions; plugins must clear their content on deactivation (the same contract as Lumi's plugins).
 
-Customize the welcome placeholder with `WorkbenchLayoutConfiguration` (`welcomeTitle`, `welcomeMessage`, `showsWelcomePlaceholder`, `showsToolbar`, `usesThemeBackground`). Use `ConfigurableRootViewProviding` instead when the host only needs "toolbar + content".
+Customize the welcome placeholder with `WorkbenchLayoutConfiguration` (`welcomeTitle`, `welcomeMessage`, `showsWelcomePlaceholder`, `showsToolbar`, `usesThemeBackground`, `usesMystiqueBackground`). Use `ConfigurableRootViewProviding` instead when the host only needs "toolbar + content".
 
 ## Dependencies and Integration
 

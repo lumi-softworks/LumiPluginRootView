@@ -19,7 +19,12 @@ struct MobileWorkbenchRootHostView: View {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 MobileActivityBarContainer(provider: provider.activityBarProvider)
             }
-            .modifier(WorkbenchBackgroundModifier(usesThemeBackground: provider.layout.usesThemeBackground))
+            .modifier(
+                WorkbenchBackgroundModifier(
+                    usesThemeBackground: provider.layout.usesThemeBackground,
+                    usesMystiqueBackground: provider.layout.usesMystiqueBackground
+                )
+            )
     }
 
     @ViewBuilder
