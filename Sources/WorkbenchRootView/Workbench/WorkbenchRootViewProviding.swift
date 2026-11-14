@@ -152,6 +152,41 @@ open class WorkbenchRootViewProviding: DefaultRootViewProviding {
 
     // MARK: - 注入守卫
 
+    // `DefaultRootViewProviding` 的区域注入会无条件发布事件；装配流程可能重复
+    // 注入同一状态（宿主重建视图树时），这里只在有值/无值状态变化时转发，
+    // 避免无意义刷新与视图重建循环。
+
+    open override func setToolbarView(_ view: AnyView?) {
+        guard !isSameView(toolbarView, view) else { return }
+        super.setToolbarView(view)
+    }
+
+    open override func setActivityBarView(_ view: AnyView?) {
+        guard !isSameView(activityBarView, view) else { return }
+        super.setActivityBarView(view)
+    }
+
+    open override func setContentHeaderView(_ view: AnyView?) {
+        guard !isSameView(contentHeaderView, view) else { return }
+        super.setContentHeaderView(view)
+    }
+
+    open override func setContentView(_ view: AnyView?) {
+        guard !isSameView(contentView, view) else { return }
+        super.setContentView(view)
+    }
+
+    open override func setContentFooterView(_ view: AnyView?) {
+        guard !isSameView(contentFooterView, view) else { return }
+        super.setContentFooterView(view)
+    }
+
+    open override func setTrailingPane(_ pane: RootViewPane?) {
+        guard pane !== trailingPane else { return }
+        trailingPane = pane
+        emitRootViewEvent(.trailingPaneChanged)
+    }
+
     /// 判断两次注入的视图是否「相同」：仅比较有值/无值状态。
     ///
     /// `AnyView` 不遵循 `Equatable`，SwiftUI 也未公开 unerase API。
