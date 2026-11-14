@@ -24,6 +24,75 @@
           }
         }
       }
+    },
+    "Welcome": {
+      "comment": "Workbench welcome placeholder title",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欢迎"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "歡迎"
+          }
+        }
+      }
+    },
+    "Select an item from the ActivityBar to get started": {
+      "comment": "Workbench welcome placeholder description",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select an item from the ActivityBar to get started"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从左侧入口栏选择一个功能开始"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從左側入口欄選擇一個功能開始"
+          }
+        }
+      }
+    },
+    "Content": {
+      "comment": "Workbench content placeholder title",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "内容"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "內容"
+          }
+        }
+      }
     }
   }
 }

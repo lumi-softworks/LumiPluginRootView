@@ -38,6 +38,35 @@ manifest 包名不带 `Lumi` 前缀时，用户在 Xcode 里就看不到这个�
 - provider 可注入：需要自定义根布局的宿主传入自己的 `DefaultRootViewProviding`
   子类；只需要通用贡献 API 的宿主直接使用默认实现。
 
+## 工作台布局
+
+`WorkbenchRootViewProviding` 是现成的多工作区外壳，适合把多个顶层功能并排展示的应用：
+
+- macOS：顶部工具栏 + ActivityBar 竖栏 + Rail（可拖拽侧栏）+ 内容区（可选 content header / footer / trailing pane）。
+- iOS：内容区 + 底部标签栏。每个 `ActivityBarItem` 呈现为一个 tab；rail 不在 iOS 渲染，因为工作区自带导航栈。
+
+注入方式（通常在宿主的视图工厂里）：
+
+```swift
+let root = WorkbenchRootViewProviding(layout: .standard)
+
+root.setToolbarView(toolbar.makeToolbarView())
+root.setActivityBarProvider(activityBar)          // macOS 渲染 makeActivityBarView()；iOS 用 items 渲染 tab
+root.setRailView(rail.makeRailView())
+root.bindRailViewVisibility(to: rail)             // Rail 可见性跟随 hasVisibleTabs
+root.bindRailViewWidth(to: rail, onResize: rail.saveCurrentWidth)
+root.setContentView(contentView.makeContentView())
+```
+
+宿主依赖的行为：
+
+- 入口少于两个时隐藏 ActivityBar（`shouldDisplayActivityBar`）。
+- `hasRailContent` 区分「宿主允许显示 Rail」与「Rail 真的有没有标签」；内容从无到有时重建 split，因为空的 `HSplitView` 面板会被永久折叠。
+- `setRailView(nil)` 会隐藏 Rail 并记住上一次可见性，无 Rail 的工作区失活时可以恢复共享的 Rail。
+- 内容注入只在 `nil` → 非 `nil` 时生效；插件必须在失活时清空自己的内容（与 Lumi 插件契约一致）。
+
+用 `WorkbenchLayoutConfiguration` 定制欢迎占位（`welcomeTitle`、`welcomeMessage`、`showsWelcomePlaceholder`、`showsToolbar`、`usesThemeBackground`）。只需要「工具栏 + 内容」的宿主继续使用 `ConfigurableRootViewProviding`。
+
 ## 依赖与接入
 
 ```swift

@@ -34,6 +34,35 @@ Why: Xcode's package dependency list shows the upstream manifest's `Package(name
 - `RootContentComposer`: the shared content-assembly decisions (toolbar visibility, content source, overlay order) — pure functions that can be asserted without building a SwiftUI view tree.
 - `ConfigurableRootViewProviding`: a ready-made root layout with an optional top toolbar, an optional theme gradient background, and an empty-state placeholder.
 
+## Workbench Layout
+
+`WorkbenchRootViewProviding` is the ready-made multi-workspace shell used by apps that expose several top-level features:
+
+- macOS: top toolbar + ActivityBar column + rail (resizable sidebar) + content area (optional content header / footer / trailing pane).
+- iOS: content area + bottom tab bar. Each `ActivityBarItem` becomes one tab; the rail is not rendered on iOS because workspaces own their own navigation stack.
+
+Injection (typically in the host's view factory):
+
+```swift
+let root = WorkbenchRootViewProviding(layout: .standard)
+
+root.setToolbarView(toolbar.makeToolbarView())
+root.setActivityBarProvider(activityBar)          // macOS: renders makeActivityBarView(); iOS: renders items as tabs
+root.setRailView(rail.makeRailView())
+root.bindRailViewVisibility(to: rail)             // rail visibility follows hasVisibleTabs
+root.bindRailViewWidth(to: rail, onResize: rail.saveCurrentWidth)
+root.setContentView(contentView.makeContentView())
+```
+
+Behaviour that hosts rely on:
+
+- The ActivityBar is hidden when it has fewer than two items (`shouldDisplayActivityBar`).
+- `hasRailContent` distinguishes "the host allows the rail" from "the rail actually has tabs"; the split view is rebuilt when content appears, because an empty `HSplitView` pane collapses permanently.
+- Removing the rail view (`setRailView(nil)`) hides it and remembers the previous visibility, so a workspace without a rail can restore the shared one on deactivation.
+- Content injection only takes effect on `nil` → non-`nil` transitions; plugins must clear their content on deactivation (the same contract as Lumi's plugins).
+
+Customize the welcome placeholder with `WorkbenchLayoutConfiguration` (`welcomeTitle`, `welcomeMessage`, `showsWelcomePlaceholder`, `showsToolbar`, `usesThemeBackground`). Use `ConfigurableRootViewProviding` instead when the host only needs "toolbar + content".
+
 ## Dependencies and Integration
 
 ```swift
