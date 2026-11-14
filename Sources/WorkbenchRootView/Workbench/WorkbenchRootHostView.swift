@@ -16,6 +16,41 @@ struct WorkbenchRootHostView: View {
     }
 }
 
+/// 包裹工作台根视图并叠加宿主插件注册的 overlay。
+///
+/// Overlay 注册表由 `DefaultRootViewProviding` 提供；这里监听 `.overlaysChanged`
+/// 以便在根视图装配完成后新增的 overlay（如搜索面板、原生控制层）也能挂载。
+@MainActor
+struct WorkbenchOverlayHostView: View {
+    let provider: WorkbenchRootViewProviding
+    @State private var observationRevision = 0
+    @State private var observerHandle: (any RootViewObserverHandle)?
+
+    var body: some View {
+        makeWrappedRoot()
+            .id(observationRevision)
+            .onAppear {
+                guard observerHandle == nil else { return }
+                observerHandle = provider.addRootViewObserver { event in
+                    guard case .overlaysChanged = event else { return }
+                    observationRevision += 1
+                }
+            }
+            .onDisappear {
+                observerHandle?.cancel()
+                observerHandle = nil
+            }
+    }
+
+    private func makeWrappedRoot() -> AnyView {
+        var root = AnyView(WorkbenchRootHostView(provider: provider))
+        for overlay in provider.overlays {
+            root = overlay.wrap(root)
+        }
+        return root
+    }
+}
+
 #if os(macOS)
 /// 桌面工作台：顶部工具栏 +（ActivityBar 竖栏 | Rail | 内容区）。
 @MainActor

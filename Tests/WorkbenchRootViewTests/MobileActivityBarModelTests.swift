@@ -1,6 +1,6 @@
 import ProviderActivityBar
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// 移动端底部标签栏的排序与显隐规则。
 @Suite("MobileActivityBarModel")

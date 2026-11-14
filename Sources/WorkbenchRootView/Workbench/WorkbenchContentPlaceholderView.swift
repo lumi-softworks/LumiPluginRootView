@@ -16,6 +16,6 @@ struct WorkbenchContentPlaceholderView: View {
     }
 
     private var placeholderTitle: String {
-        String(localized: "Content", table: "PluginRootView", bundle: .module)
+        String(localized: "Content", table: "WorkbenchRootView", bundle: .module)
     }
 }

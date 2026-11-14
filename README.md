@@ -9,7 +9,7 @@ Shared remote package for the "Root View" plugin, assembled by Lumi family sibli
 ## Package
 
 - Manifest package name: `LumiPluginRootView` (matches the repository name)
-- Product / Target: `PluginRootView`
+- Product / Target: `WorkbenchRootView` (module name kept distinct from host-local `PluginRootView` modules)
 - Platform: macOS 14+ / iOS 17+
 - Swift tools: 6.0
 
@@ -19,7 +19,7 @@ Lumi Softworks remote plugin packages follow this convention uniformly:
 
 | Repository | manifest `name:` | product / target |
 | --- | --- | --- |
-| `LumiPluginRootView` | `LumiPluginRootView` | `PluginRootView` |
+| `LumiPluginRootView` | `LumiPluginRootView` | `WorkbenchRootView` |
 | `LumiPluginAbout` | `LumiPluginAbout` | `PluginAbout` |
 | `LumiPluginFileLog` | `LumiPluginFileLog` | `PluginFileLog` |
 
@@ -67,20 +67,20 @@ Customize the welcome placeholder with `WorkbenchLayoutConfiguration` (`welcomeT
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/lumi-softworks/LumiPluginRootView.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginRootView.git", from: "1.3.0")
 ]
 ```
 
 Add the product to the host Factory target:
 
 ```swift
-.product(name: "PluginRootView", package: "LumiPluginRootView")
+.product(name: "WorkbenchRootView", package: "LumiPluginRootView")
 ```
 
 And assemble it in the plugin factory:
 
 ```swift
-import PluginRootView
+import WorkbenchRootView
 
 RootViewPlugin(configuration: .wakey)
 ```

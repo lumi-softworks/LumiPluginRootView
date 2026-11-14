@@ -147,7 +147,7 @@ open class WorkbenchRootViewProviding: DefaultRootViewProviding {
     // MARK: - 根视图
 
     open override func makeRootView() -> AnyView {
-        AnyView(WorkbenchRootHostView(provider: self))
+        AnyView(WorkbenchOverlayHostView(provider: self))
     }
 
     // MARK: - 注入守卫

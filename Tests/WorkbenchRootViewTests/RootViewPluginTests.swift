@@ -2,7 +2,7 @@ import KernelCore
 import ProviderRootView
 import SwiftUI
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// `RootViewPlugin` 的契约是「onBoot 用自带 provider 替换内核默认注册、
 /// onShutdown 注销」。它支持注入自定义 provider，因此可以完全脱离内核默认值测试。

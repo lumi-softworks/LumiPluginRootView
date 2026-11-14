@@ -104,7 +104,7 @@ public enum RootContentComposer {
     /// （可能还没进主 actor）构造布局配置时也要能引用。
     public nonisolated static let defaultEmptyStateTitle = String(
         localized: "当前没有可显示的内容",
-        table: "PluginRootView",
+        table: "WorkbenchRootView",
         bundle: .module
     )
 }

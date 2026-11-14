@@ -1,5 +1,5 @@
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// 品牌配置是共享包与宿主之间唯一的耦合点：取值必须逐字稳定，
 /// 否则插件管理页展示、既有插件启用状态与日志落盘都会漂移。

@@ -2,7 +2,7 @@ import KernelCore
 import ProviderRootView
 import SwiftUI
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// `RootContentComposer` 的决策逻辑可以脱离 SwiftUI 视图树直接断言。
 @Suite("RootContentComposer")

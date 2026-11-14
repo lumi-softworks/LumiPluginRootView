@@ -44,14 +44,14 @@ public struct WorkbenchLayoutConfiguration: Sendable, Equatable {
     /// 共享包自带的默认欢迎标题。
     public nonisolated static let defaultWelcomeTitle = String(
         localized: "Welcome",
-        table: "PluginRootView",
+        table: "WorkbenchRootView",
         bundle: .module
     )
 
     /// 共享包自带的默认欢迎说明。
     public nonisolated static let defaultWelcomeMessage = String(
         localized: "Select an item from the ActivityBar to get started",
-        table: "PluginRootView",
+        table: "WorkbenchRootView",
         bundle: .module
     )
 }

@@ -2,7 +2,7 @@ import KernelCore
 import ProviderRootView
 import SwiftUI
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// 可配置根视图 provider 与插件在真实 Kernel 生命周期下的行为。
 @Suite("ConfigurableRootViewProviding")

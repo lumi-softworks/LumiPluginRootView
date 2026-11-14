@@ -10,7 +10,7 @@
 ## 包信息
 
 - manifest 包名：`LumiPluginRootView`（与仓库名一致）
-- product / target：`PluginRootView`
+- product / target：`WorkbenchRootView`（模块名与宿主本地的 `PluginRootView` 模块区分开，避免 SwiftPM target 重名）
 - 平台：macOS 14+ / iOS 17+
 - Swift tools：6.0
 
@@ -20,7 +20,7 @@ Lumi Softworks 远程插件包统一遵循此约定：
 
 | 仓库 | manifest `name:` | product / target |
 | --- | --- | --- |
-| `LumiPluginRootView` | `LumiPluginRootView` | `PluginRootView` |
+| `LumiPluginRootView` | `LumiPluginRootView` | `WorkbenchRootView` |
 | `LumiPluginAbout` | `LumiPluginAbout` | `PluginAbout` |
 | `LumiPluginFileLog` | `LumiPluginFileLog` | `PluginFileLog` |
 
@@ -71,20 +71,20 @@ root.setContentView(contentView.makeContentView())
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/lumi-softworks/LumiPluginRootView.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginRootView.git", from: "1.3.0")
 ]
 ```
 
 在宿主 Factory target 中加入 product：
 
 ```swift
-.product(name: "PluginRootView", package: "LumiPluginRootView")
+.product(name: "WorkbenchRootView", package: "LumiPluginRootView")
 ```
 
 并在插件工厂中装配：
 
 ```swift
-import PluginRootView
+import WorkbenchRootView
 
 RootViewPlugin(configuration: .wakey)
 ```

@@ -10,8 +10,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "PluginRootView",
-            targets: ["PluginRootView"]
+            name: "WorkbenchRootView",
+            targets: ["WorkbenchRootView"]
         )
     ],
     dependencies: [
@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "PluginRootView",
+            name: "WorkbenchRootView",
             dependencies: [
                 .product(name: "KernelCore", package: "LumiKernel"),
                 .product(name: "LumiLoggingKit", package: "LumiLogging"),
@@ -31,19 +31,19 @@ let package = Package(
                 .product(name: "ProviderRootView", package: "LumiProviders"),
                 .product(name: "LumiUI", package: "LumiUI")
             ],
-            path: "Sources/PluginRootView",
-            resources: [.process("../../Resources/PluginRootView.xcstrings")]
+            path: "Sources/WorkbenchRootView",
+            resources: [.process("../../Resources/WorkbenchRootView.xcstrings")]
         ),
         .testTarget(
-            name: "PluginRootViewTests",
+            name: "WorkbenchRootViewTests",
             dependencies: [
-                "PluginRootView",
+                "WorkbenchRootView",
                 .product(name: "KernelCore", package: "LumiKernel"),
                 .product(name: "ProviderActivityBar", package: "LumiProviders"),
                 .product(name: "ProviderRailView", package: "LumiProviders"),
                 .product(name: "ProviderRootView", package: "LumiProviders")
             ],
-            path: "Tests/PluginRootViewTests"
+            path: "Tests/WorkbenchRootViewTests"
         )
     ]
 )

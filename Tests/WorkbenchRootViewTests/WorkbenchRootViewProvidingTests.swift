@@ -3,7 +3,7 @@ import ProviderRailView
 import ProviderRootView
 import SwiftUI
 import Testing
-@testable import PluginRootView
+@testable import WorkbenchRootView
 
 /// `WorkbenchRootViewProviding` 的区域联动语义。
 @Suite("WorkbenchRootViewProviding")
