@@ -22,6 +22,18 @@
             "state": "translated",
             "value": "當前沒有可顯示的內容"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當前沒有可顯示的內容"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當前沒有可顯示的內容"
+          }
         }
       }
     },
